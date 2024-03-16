@@ -22,8 +22,6 @@ spec:
       - name: host-volume
         persistentVolumeClaim:
           claimName: longhorn-volv-pvc
-        hostPath:
-          path: /home/docker/blue-shared-volume
       containers:
       - image: nginx
         name: nginx
