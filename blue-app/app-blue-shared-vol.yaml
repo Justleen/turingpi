@@ -6,6 +6,10 @@ metadata:
     app: blue-app
   name: blue-app
 spec:
+  storageClassName: longhorn
+  resources:
+    requests:
+      storage: 2Gi
   replicas: 1
   selector:
     matchLabels:
@@ -18,10 +22,10 @@ spec:
         app: blue-app
         type: canary
     spec:
-      volumes:
-      - name: host-volume
-        hostPath:
-          path: /home/docker/blue-shared-volume
+    volumes:
+    - name: volv
+      persistentVolumeClaim:
+        claimName: longhorn-volv-pvc
       containers:
       - image: nginx
         name: nginx
@@ -29,11 +33,11 @@ spec:
         - containerPort: 80
         volumeMounts:
         - mountPath: /usr/share/nginx/html
-          name: host-volume
+          name: volv
       - image: debian
         name: debian
         volumeMounts:
         - mountPath: /host-vol
-          name: host-volume
+          name: volv
         command: ["/bin/sh", "-c", "echo Welcome to BLUE App! > /host-vol/index.html ; sleep infinity"]
 status: {}
