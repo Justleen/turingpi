@@ -20,6 +20,8 @@ spec:
     spec:
       volumes:
       - name: host-volume
+        persistentVolumeClaim:
+          claimName: longhorn-volv-pvc
         hostPath:
           path: /home/docker/blue-shared-volume
       containers:
