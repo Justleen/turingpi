@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: host-volume
+  name: host-pvc
   namespace: default
 spec:
   accessModes:
@@ -52,5 +52,5 @@ spec:
       volumes:
       - name: host-volume
         persistentVolumeClaim:
-          claimName: host-volume    
+          claimName:  host-pvc
 status: {}
