@@ -1,0 +1,45 @@
+# This volume holds your photos.
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: photos
+  namespace: librephotos
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: longhorn
+  resources:
+    requests:
+      storage: 30Gi
+
+---
+
+# This volume contains thumbnails. Setting it to 10-15% the size of "photos" is probably reasonable.
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: protected
+  namespace: librephotos
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: longhorn
+  resources:
+    requests:
+      storage: 3Gi
+
+---
+
+# The postgres volume holds all the metadata. If it's 1% the size of "photos," you're probably fine.
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: postgres
+  namespace: librephotos
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: longhorn
+  resources:
+    requests:
+      storage: 1Gi

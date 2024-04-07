@@ -1,0 +1,15 @@
+kind: IngressRoute
+apiVersion: traefik.containo.us/v1alpha1
+metadata:
+  name: librephoto-proxy
+  namespace: librephotos
+
+spec:
+  entryPoints: 
+    - websecure
+  routes:
+  - match: Host(`photos.turing.pi`) 
+    kind: Rule
+    services:
+    - name: proxy
+      port: 80
